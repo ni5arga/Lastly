@@ -1,8 +1,86 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Lastly
 
-## Getting Started
+Lastly is a Next.js project that generates SVG images for your github readme to display music statistics from Last.fm. The project provides several API endpoints to fetch and visualize top artists, tracks, albums, and recent tracks for a given user.
 
-First, run the development server:
+## API Endpoints
+
+The project provides the following API endpoints:
+
+- `/api/overall`: Fetches and visualizes overall music statistics.
+- `/api/top-artists`: Fetches and visualizes the top artists.
+- `/api/top-tracks`: Fetches and visualizes the top tracks.
+- `/api/top-albums`: Fetches and visualizes the top albums.
+- `/api/recent`: Fetches and visualizes the recent tracks.
+
+### Example Usage
+
+#### Overall Statistics
+
+Endpoint: `/api/overall?username=ni5arga&period=overall`
+
+![Overall Statistics](https://lastly.vercel.app/api/overall?username=ni5arga&period=overall)
+
+#### Top Artists
+
+Endpoint: `/api/top-artists?username=ni5arga`
+
+![Top Artists](https://lastly.vercel.app/api/top-artists?username=ni5arga)
+
+#### Top Tracks
+
+Endpoint: `/api/top-tracks?username=ni5arga`
+
+![Top Tracks](https://lastly.vercel.app/api/top-tracks?username=ni5arga)
+
+#### Top Albums
+
+Endpoint: `/api/top-albums?username=ni5arga`
+
+![Top Albums](https://lastly.vercel.app/api/top-albums?username=ni5arga)
+
+#### Recent Tracks
+
+Endpoint: `/api/recent?username=ni5arga`
+
+![Recent Tracks](https://lastly.vercel.app/api/recent?username=ni5arga)
+
+## Embedding in README
+
+To embed in your README:
+
+```md
+![alt text](https://lastly.vercel.app/api/overall?username=USERNAME&period=PERIOD)
+```
+
+or
+
+```html
+<img src="https://lastly.vercel.app/api/overall?username=USERNAME&period=PERIOD" alt="Overall Statistics" align="center">
+```
+
+The latter will allow you to better format the card (e.g., `align="center"`).
+
+### Options
+
+- `period`: Can be set to `overall`, `7day`, `1month`, `3month`, `6month`, `12month`.
+
+## Self-Hosting Guide
+
+First, clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/ni5arga/lastly.git
+cd lastly
+npm install
+```
+
+Create a `.env.local` file in the root directory and add your Last.fm API key:
+
+```env
+LASTFM_API_KEY=your_lastfm_api_key
+```
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -15,14 +93,6 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
 
