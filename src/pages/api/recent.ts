@@ -1,8 +1,22 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+function escapeXML(str: string) {
+  return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;")
+            .replace(/\$/g, "&#36;")
+            .replace(/%/g, "&#37;");
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const username = req.query.username;
+  const username = Array.isArray(req.query.username) ? req.query.username[0] : req.query.username;
+  if (!username) {
+    res.status(400).json({ error: 'Username is required' });
+    return;
+  }
   const apiKey = process.env.LASTFM_API_KEY;
 
   const lastFmRecentTracksUrl = `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json`;
@@ -30,28 +44,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           .index { font: bold 12px 'Segoe UI', sans-serif; fill: #ff6b6b; }
         </style>
         <defs>
-          <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="grad" x1="0%" y1="0%" x2="100%">
             <stop offset="0%" style="stop-color:#1a2a3a;stop-opacity:1" />
             <stop offset="100%" style="stop-color:#3d6073;stop-opacity:1" />
           </linearGradient>
+          <clipPath id="clipCircle">
+            <circle cx="440" cy="55" r="40" />
+          </clipPath>
         </defs>
         <rect width="500" height="200" class="bg"/>
 
         <circle cx="440" cy="55" r="40" fill="white" />
         <image href="${fullProfilePic}" x="400" y="15" height="80" width="80" clip-path="url(#clipCircle)" />
-        <clipPath id="clipCircle">
-          <circle cx="440" cy="55" r="40" />
-        </clipPath>
 
-        <text x="20" y="40" class="title">Recent Tracks for ${username}</text>
+        <text x="20" y="40" class="title">Recent Tracks for ${escapeXML(username)}</text>
         <text x="20" y="80" class="section-title">Recent 5 Tracks</text>
     `;
 
     recentTracks.forEach((track: any, index: number) => {
       const artistName = track.artist['#text'] || 'Unknown Artist';
+      const trackName = track.name || 'Unknown Track';
       svgContent += `
         <text x="20" y="${100 + index * 18}" class="index">${index + 1}.</text>
-        <text x="50" y="${100 + index * 18}" class="item">${track.name} - ${artistName}</text>`;
+        <text x="50" y="${100 + index * 18}" class="item">${escapeXML(trackName)} - ${escapeXML(artistName)}</text>`;
     });
 
     svgContent += `</svg>`;
