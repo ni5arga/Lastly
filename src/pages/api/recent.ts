@@ -15,7 +15,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ]);
 
     const recentTracks = recentTracksResponse.data.recenttracks.track.slice(0, 5);
-    const profilePic = userInfoResponse.data.user.image[2]['#text'];
+    const profilePic = userInfoResponse.data.user.image[2]['#text']; 
+    const response = await axios.get(profilePic, { responseType: 'arraybuffer' });
+    const base64ProfilePic = Buffer.from(response.data, 'binary').toString('base64');
+    const fullProfilePic = `data:image/png;base64,${base64ProfilePic}`;
 
     let svgContent = `
       <svg xmlns="http://www.w3.org/2000/svg" width="500" height="200" viewBox="0 0 500 200" fill="none">
@@ -35,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         <rect width="500" height="200" class="bg"/>
 
         <circle cx="440" cy="55" r="40" fill="white" />
-        <image href="${profilePic}" x="400" y="15" height="80" width="80" clip-path="url(#clipCircle)" />
+        <image href="${fullProfilePic}" x="400" y="15" height="80" width="80" clip-path="url(#clipCircle)" />
         <clipPath id="clipCircle">
           <circle cx="440" cy="55" r="40" />
         </clipPath>
