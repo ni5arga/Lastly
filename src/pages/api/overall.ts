@@ -1,8 +1,18 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+function escapeXML(str: string) {
+  return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;")
+            .replace(/\$/g, "&#36;") 
+            .replace(/%/g, "&#37;");  
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const username = req.query.username;
+  const username = Array.isArray(req.query.username) ? req.query.username[0] : req.query.username;
   const period = req.query.period || 'overall'; // Default to 'overall' if no period is provided.
   const apiKey = process.env.LASTFM_API_KEY;
 
@@ -61,7 +71,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         <rect width="660" height="550" class="bg"/>
 
-        <text x="20" y="40" class="title">Music Stats for ${username}</text>
+        <text x="20" y="40" class="title">Music Stats for ${escapeXML(username || '')}</text>
         <text x="20" y="60" class="subtitle">Top Artists, Tracks, and Albums</text>
 
         <image href="${fullProfilePic}" x="560" y="25" height="80" width="80" class="profile"/>
@@ -75,7 +85,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     topArtists.forEach((artist: any, index: number) => {
       svgContent += `
         <text x="20" y="${210 + index * 25}" class="index">${index + 1}.</text>
-        <text x="40" y="${210 + index * 25}" class="item">${artist.name}</text>`;
+        <text x="40" y="${210 + index * 25}" class="item">${escapeXML(artist.name)}</text>`;
     });
 
     svgContent += `
@@ -84,7 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     topTracks.forEach((track: any, index: number) => {
       svgContent += `
         <text x="320" y="${210 + index * 25}" class="index">${index + 1}.</text>
-        <text x="340" y="${210 + index * 25}" class="item">${track.name} - ${track.artist.name}</text>`;
+        <text x="340" y="${210 + index * 25}" class="item">${escapeXML(track.name)} - ${escapeXML(track.artist.name)}</text>`;
     });
 
     svgContent += `
@@ -93,7 +103,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     topAlbums.forEach((album: any, index: number) => {
       svgContent += `
         <text x="20" y="${400 + index * 25}" class="index">${index + 1}.</text>
-        <text x="40" y="${400 + index * 25}" class="item">${album.name} - ${album.artist.name}</text>`;
+        <text x="40" y="${400 + index * 25}" class="item">${escapeXML(album.name)} - ${escapeXML(album.artist.name)}</text>`;
     });
 
     svgContent += `
@@ -103,7 +113,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const artistName = track.artist['#text'] || 'Unknown Artist';
       svgContent += `
         <text x="320" y="${400 + index * 25}" class="index">${index + 1}.</text>
-        <text x="340" y="${400 + index * 25}" class="item">${track.name} - ${artistName}</text>`;
+        <text x="340" y="${400 + index * 25}" class="item">${escapeXML(track.name)} - ${escapeXML(artistName)}</text>`;
     });
 
     svgContent += `</svg>`;
