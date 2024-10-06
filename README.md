@@ -18,7 +18,7 @@ The project provides the following API endpoints:
 
 Endpoint: `/api/overall?username=ni5arga&period=overall`
 
-![Overall Statistics](https://lastly.nisarga.me/api/overall?username=ni5arga)
+![Overall Statistics](https://lastly.nisarga.me/api/overall?username=jake)
 
 #### Top Artists
 
