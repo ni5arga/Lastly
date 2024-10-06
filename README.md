@@ -1,101 +1,178 @@
-# Lastly
 
-Lastly is a Next.js project that generates SVG images displaying music statistics from Last.fm. The project provides several API endpoints to fetch and visualize top artists, tracks, albums, and recent tracks for a given user.
+# 🎵 Lastly
 
-## API Endpoints
+Lastly is a **Next.js** project that generates **SVG images** displaying music statistics from [Last.fm](https://www.last.fm). The project offers several API endpoints to fetch and visualize data like top artists, tracks, albums, and recent listening history for any given user.
+
+---
+
+## 🎯 API Endpoints
 
 The project provides the following API endpoints:
 
-- `/api/overall`: Fetches and visualizes overall music statistics.
-- `/api/top-artists`: Fetches and visualizes the top artists.
-- `/api/top-tracks`: Fetches and visualizes the top tracks.
-- `/api/top-albums`: Fetches and visualizes the top albums.
-- `/api/recent`: Fetches and visualizes the recent tracks.
+| Endpoint              | Description                                |
+| --------------------- | ------------------------------------------ |
+| `/api/overall`        | Fetches and visualizes overall statistics  |
+| `/api/top-artists`    | Fetches and visualizes top artists         |
+| `/api/top-tracks`     | Fetches and visualizes top tracks          |
+| `/api/top-albums`     | Fetches and visualizes top albums          |
+| `/api/recent`         | Fetches and visualizes recent tracks       |
 
 ### Example Usage
 
-#### Overall Statistics
+#### 1. Overall Statistics
 
-Endpoint: `/api/overall?username=ni5arga&period=overall`
+**Endpoint:**
 
-![Overall Statistics](https://lastly.nisarga.me/api/overall?username=ni5arga)
+```bash
+/api/overall?username=ni5arga&period=overall
+```
 
-#### Top Artists
+**Preview:**
 
-Endpoint: `/api/top-artists?username=ni5arga`
+![Overall Statistics](https://lastly.nisarga.me/api/overall?username=ni5arga&period=6months)
+
+---
+
+#### 2. Top Artists
+
+**Endpoint:**
+
+```bash
+/api/top-artists?username=ni5arga
+```
+
+**Preview:**
 
 ![Top Artists](https://lastly.nisarga.me/api/top-artists?username=ni5arga)
 
-#### Top Tracks
+---
 
-Endpoint: `/api/top-tracks?username=ni5arga`
+#### 3. Top Tracks
+
+**Endpoint:**
+
+```bash
+/api/top-tracks?username=ni5arga
+```
+
+**Preview:**
 
 ![Top Tracks](https://lastly.nisarga.me/api/top-tracks?username=ni5arga)
 
-#### Top Albums
+---
 
-Endpoint: `/api/top-albums?username=ni5arga`
+#### 4. Top Albums
+
+**Endpoint:**
+
+```bash
+/api/top-albums?username=ni5arga
+```
+
+**Preview:**
 
 ![Top Albums](https://lastly.nisarga.me/api/top-albums?username=ni5arga)
 
-#### Recent Tracks
+---
 
-Endpoint: `/api/recent?username=ni5arga`
+#### 5. Recent Tracks
+
+**Endpoint:**
+
+```bash
+/api/recent?username=ni5arga
+```
+
+**Preview:**
 
 ![Recent Tracks](https://lastly.nisarga.me/api/recent?username=ni5arga)
 
-## Embedding in README
+---
 
-To embed in your README:
+## 🚀 Embedding in README
+
+To embed these images in your GitHub README (or other markdown content):
+
+1. Use the following markdown syntax to display the overall statistics for a user.
 
 ```md
-![alt text](https://lastly.nisarga.me/api/overall?username=USERNAME&period=PERIOD)
+![Overall Statistics](https://lastly.nisarga.me/api/overall?username=USERNAME&period=PERIOD)
 ```
-or
+
+Replace `USERNAME` with your Last.fm username and `PERIOD` with the desired period (see options below).
+
+2. Alternatively, you can use HTML for more control over formatting (e.g., centering the image):
 
 ```html
 <img src="https://lastly.nisarga.me/api/overall?username=USERNAME&period=PERIOD" alt="Overall Statistics" align="center">
 ```
 
-The latter will allow you to better format the card (e.g., `align="center"`).
+---
 
-### Options
+### 🛠️ Options
 
-- `username`: Your [last.fm](last.fm) username.
+- **`username`**: Your [Last.fm](https://www.last.fm) username.
+- **`period`**: Can be set to:
+  - `overall`: All-time statistics (default)
+  - `7day`: Last 7 days
+  - `1month`: Last month
+  - `3month`: Last 3 months
+  - `6month`: Last 6 months
+  - `12month`: Last year
 
-- `period`: Can be set to `overall`, `7day`, `1month`, `3month`, `6month`, `12month` (defaults to overall if not mentioned).
+If `period` is not specified, the default is `overall`.
 
-## Self-Hosting Guide
+---
 
+## 📖 Self-Hosting Guide
 
-First, clone the repository and install the dependencies:
+Follow the steps below to set up and run the project on your local machine:
 
-```bash
-git clone https://github.com/ni5arga/lastly.git
-cd lastly
-npm install
-```
+1. **Clone the repository**:
 
-Create a `.env.local` file in the root directory and add your Last.fm API key:
+   ```bash
+   git clone https://github.com/ni5arga/lastly.git
+   cd lastly
+   ```
 
-```env
-LASTFM_API_KEY=your_lastfm_api_key
-```
+2. **Install dependencies**:
 
-Run the development server:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+3. **Configure environment**:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   Create a `.env.local` file in the root directory and add your Last.fm API key.
 
-### Deploy With Vercel
+   ```env
+   LASTFM_API_KEY=your_lastfm_api_key
+   ```
+
+4. **Run the development server**:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) with your browser to view the project.
+
+---
+
+## 🌍 Deploy with Vercel
+
+Deploy the project to Vercel using the button below. Make sure to set up your environment variable (`LASTFM_API_KEY`) during the process.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fni5arga%2FLastly&env=LASTFM_API_KEY)
+
+---
+
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
