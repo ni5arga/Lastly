@@ -61,6 +61,8 @@ The latter will allow you to better format the card (e.g., `align="center"`).
 
 ### Options
 
+- `username`: Your [last.fm](last.fm) username.
+
 - `period`: Can be set to `overall`, `7day`, `1month`, `3month`, `6month`, `12month` (defaults to overall if not mentioned).
 
 ## Self-Hosting Guide
