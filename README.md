@@ -1,6 +1,6 @@
 # Lastly
 
-Lastly is a Next.js project that generates SVG images for your github readme to display music statistics from Last.fm. The project provides several API endpoints to fetch and visualize top artists, tracks, albums, and recent tracks for a given user.
+Lastly is a Next.js project that generates SVG images displaying music statistics from Last.fm. The project provides several API endpoints to fetch and visualize top artists, tracks, albums, and recent tracks for a given user.
 
 ## API Endpoints
 
@@ -18,51 +18,50 @@ The project provides the following API endpoints:
 
 Endpoint: `/api/overall?username=ni5arga&period=overall`
 
-![Overall Statistics](https://lastly.vercel.app/api/overall?username=ni5arga&period=overall)
+![Overall Statistics](https://lastly.nisarga.me/api/overall?username=ni5arga&period=overall)
 
 #### Top Artists
 
 Endpoint: `/api/top-artists?username=ni5arga`
 
-![Top Artists](https://lastly.vercel.app/api/top-artists?username=ni5arga)
+![Top Artists](https://lastly.nisarga.me/api/top-artists?username=ni5arga)
 
 #### Top Tracks
 
 Endpoint: `/api/top-tracks?username=ni5arga`
 
-![Top Tracks](https://lastly.vercel.app/api/top-tracks?username=ni5arga)
+![Top Tracks](https://lastly.nisarga.me/api/top-tracks?username=ni5arga)
 
 #### Top Albums
 
 Endpoint: `/api/top-albums?username=ni5arga`
 
-![Top Albums](https://lastly.vercel.app/api/top-albums?username=ni5arga)
+![Top Albums](https://lastly.nisarga.me/api/top-albums?username=ni5arga)
 
 #### Recent Tracks
 
 Endpoint: `/api/recent?username=ni5arga`
 
-![Recent Tracks](https://lastly.vercel.app/api/recent?username=ni5arga)
+![Recent Tracks](https://lastly.nisarga.me/api/recent?username=ni5arga)
 
 ## Embedding in README
 
 To embed in your README:
 
 ```md
-![alt text](https://lastly.vercel.app/api/overall?username=USERNAME&period=PERIOD)
+![alt text](https://lastly.nisarga.me/api/overall?username=USERNAME&period=PERIOD)
 ```
-
 or
 
 ```html
-<img src="https://lastly.vercel.app/api/overall?username=USERNAME&period=PERIOD" alt="Overall Statistics" align="center">
+<img src="https://lastly.nisarga.me/api/overall?username=USERNAME&period=PERIOD" alt="Overall Statistics" align="center">
 ```
 
 The latter will allow you to better format the card (e.g., `align="center"`).
 
 ### Options
 
-- `period`: Can be set to `overall`, `7day`, `1month`, `3month`, `6month`, `12month`.
+- `period`: Can be set to `overall`, `7day`, `1month`, `3month`, `6month`, `12month` (defaults to overall if not mentioned).
 
 ## Self-Hosting Guide
 
