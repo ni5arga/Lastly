@@ -1,8 +1,18 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+function escapeXML(str: string) {
+  return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;")
+            .replace(/\$/g, "&#36;")  
+            .replace(/%/g, "&#37;");  
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const username = req.query.username;
+  const username = Array.isArray(req.query.username) ? req.query.username[0] : req.query.username;
   const apiKey = process.env.LASTFM_API_KEY;
 
   const lastFmTopArtistsUrl = `http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${username}&api_key=${apiKey}&format=json&period=overall`;
@@ -45,14 +55,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         </clipPath>
         <image href="${fullProfilePic}" x="400" y="15" height="80" width="80" clip-path="url(#clipCircle)" />
 
-        <text x="20" y="40" class="title">Top Artists for ${username}</text>
+        <text x="20" y="40" class="title">Top Artists for ${escapeXML(username || '')}</text>
         <text x="20" y="80" class="section-title">Top 5 Artists</text>
     `;
 
     topArtists.forEach((artist: any, index: number) => {
       svgContent += `
         <text x="20" y="${100 + index * 18}" class="index">${index + 1}.</text>
-        <text x="50" y="${100 + index * 18}" class="item">${artist.name}</text>`;
+        <text x="50" y="${100 + index * 18}" class="item">${escapeXML(artist.name)}</text>`;
     });
 
     svgContent += `</svg>`;
