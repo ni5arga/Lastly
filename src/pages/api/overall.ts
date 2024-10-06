@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const username = req.query.username || 'defaultUser';
+  const username = req.query.username;
   const period = req.query.period || 'overall'; // Default to 'overall' if no period is provided.
   const apiKey = process.env.LASTFM_API_KEY;
 
