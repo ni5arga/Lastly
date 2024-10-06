@@ -16,7 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const topTracks = topTracksResponse.data.toptracks.track.slice(0, 5);
     const profilePic = userInfoResponse.data.user.image[2]['#text']; 
-    const profilePic = userInfoResponse.data.user.image[2]['#text']; 
     const response = await axios.get(profilePic, { responseType: 'arraybuffer' });
     const base64ProfilePic = Buffer.from(response.data, 'binary').toString('base64');
     const fullProfilePic = `data:image/png;base64,${base64ProfilePic}`;
