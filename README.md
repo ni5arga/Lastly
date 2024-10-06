@@ -67,6 +67,7 @@ The latter will allow you to better format the card (e.g., `align="center"`).
 
 ## Self-Hosting Guide
 
+
 First, clone the repository and install the dependencies:
 
 ```bash
@@ -95,3 +96,6 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Deploy With Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fni5arga%2FLastly&env=LASTFM_API_KEY)
