@@ -31,9 +31,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const topTracks = topTracksResponse.data.toptracks.track.slice(0, 5);
     const topAlbums = topAlbumsResponse.data.topalbums.album.slice(0, 5);
     const recentTracks = recentTracksResponse.data.recenttracks.track.slice(0, 5);
-    const profilePic = userInfoResponse.data.user.image[2]['#text']; // Medium-sized image
-    const totalScrobbles = userInfoResponse.data.user.playcount; // Total scrobbles
-    const totalArtists = userInfoResponse.data.user.artist_count; // Total artists
+    const profilePic = userInfoResponse.data.user.image[2]['#text'];
+    const totalScrobbles = userInfoResponse.data.user.playcount; 
+    const totalArtists = userInfoResponse.data.user.artist_count;
+
+    const response = await axios.get(profilePic, { responseType: 'arraybuffer' });
+    const base64ProfilePic = Buffer.from(response.data, 'binary').toString('base64');
+    const fullProfilePic = `data:image/png;base64,${base64ProfilePic}`;
 
     let svgContent = `
       <svg xmlns="http://www.w3.org/2000/svg" width="660" height="550" viewBox="0 0 660 550" fill="none">
@@ -60,7 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         <text x="20" y="40" class="title">Music Stats for ${username}</text>
         <text x="20" y="60" class="subtitle">Top Artists, Tracks, and Albums</text>
 
-        <image href="${profilePic}" x="560" y="25" height="80" width="80" class="profile"/>
+        <image href="${fullProfilePic}" x="560" y="25" height="80" width="80" class="profile"/>
 
         <text x="20" y="120" class="stats">Total Scrobbles: ${totalScrobbles}</text>
         <text x="20" y="140" class="stats">Total Artists: ${totalArtists}</text>
