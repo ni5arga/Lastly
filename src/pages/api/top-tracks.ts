@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const username = req.query.username || 'defaultUser';
+  const username = req.query.username;
   const apiKey = process.env.LASTFM_API_KEY;
 
   const lastFmTopTracksUrl = `http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${username}&api_key=${apiKey}&format=json&period=overall`;
