@@ -2,14 +2,14 @@ import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const username = req.query.username as string || 'defaultUser';
+  const username = req.query.username || 'defaultUser';
   const period = req.query.period || 'overall'; // Default to 'overall' if no period is provided.
   const apiKey = process.env.LASTFM_API_KEY;
 
   const lastFmTopArtistsUrl = `http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${username}&period=${period}&api_key=${apiKey}&format=json`;
   const lastFmTopTracksUrl = `http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${username}&period=${period}&api_key=${apiKey}&format=json`;
   const lastFmTopAlbumsUrl = `http://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=${username}&period=${period}&api_key=${apiKey}&format=json`;
-  const  lastFmRecentTracksUrl = `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json`;
+  const lastFmRecentTracksUrl = `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json`;
   const lastFmUserInfoUrl = `http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${username}&api_key=${apiKey}&format=json`;
 
   try {
@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const totalArtists = userInfoResponse.data.user.artist_count; // Total artists
 
     let svgContent = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600" fill="none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="660" height="550" viewBox="0 0 660 550" fill="none">
         <style>
           .bg { fill: url(#grad); }
           .title { font: bold 22px 'Segoe UI', sans-serif; fill: #ffffff; }
@@ -55,12 +55,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           </linearGradient>
         </defs>
 
-        <rect width="600" height="600" class="bg"/>
+        <rect width="660" height="550" class="bg"/>
 
         <text x="20" y="40" class="title">Music Stats for ${username}</text>
         <text x="20" y="60" class="subtitle">Top Artists, Tracks, and Albums</text>
 
-        <image href="${profilePic}" x="470" y="25" height="80" width="80" class="profile"/>
+        <image href="${profilePic}" x="560" y="25" height="80" width="80" class="profile"/>
 
         <text x="20" y="120" class="stats">Total Scrobbles: ${totalScrobbles}</text>
         <text x="20" y="140" class="stats">Total Artists: ${totalArtists}</text>
@@ -84,22 +84,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     svgContent += `
-        <text x="20" y="320" class="section-title">Top 5 Albums</text>`;
+        <text x="20" y="370" class="section-title">Top 5 Albums</text>`;
 
     topAlbums.forEach((album: any, index: number) => {
       svgContent += `
-        <text x="20" y="${350 + index * 25}" class="index">${index + 1}.</text>
-        <text x="40" y="${350 + index * 25}" class="item">${album.name} - ${album.artist.name}</text>`;
+        <text x="20" y="${400 + index * 25}" class="index">${index + 1}.</text>
+        <text x="40" y="${400 + index * 25}" class="item">${album.name} - ${album.artist.name}</text>`;
     });
 
     svgContent += `
-        <text x="320" y="320" class="section-title">Recent 5 Tracks</text>`;
+        <text x="320" y="370" class="section-title">Recent 5 Tracks</text>`;
 
     recentTracks.forEach((track: any, index: number) => {
       const artistName = track.artist['#text'] || 'Unknown Artist';
       svgContent += `
-        <text x="280" y="${350 + index * 25}" class="index">${index + 1}.</text>
-        <text x="280" y="${350 + index * 25}" class="item">${track.name} - ${artistName}</text>`;
+        <text x="320" y="${400 + index * 25}" class="index">${index + 1}.</text>
+        <text x="340" y="${400 + index * 25}" class="item">${track.name} - ${artistName}</text>`;
     });
 
     svgContent += `</svg>`;
